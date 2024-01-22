@@ -50,7 +50,7 @@ def factorize_n(e: int, d: int, n: int) -> tuple[int, int]:
     Returns:
         tuple[int, int]: числа `p` и `q`
     """
-    g_set = set()
+    g_set: set = set()
 
     while True:
         g = randint(2, n)
@@ -63,7 +63,7 @@ def factorize_n(e: int, d: int, n: int) -> tuple[int, int]:
                 return int(gcd_g_n), int(n // gcd_g_n)
 
             # * Шаг 2
-            k = e * d - 1
+            k: int = e * d - 1
             r, t = repres_k(k)
 
             for _t in range(1, t + 1):
@@ -75,6 +75,14 @@ def factorize_n(e: int, d: int, n: int) -> tuple[int, int]:
                 gcd_y_n = gcd(y - 1, n)
                 if gcd_g_n != 1:
                     return int(gcd_y_n), int(n // gcd_y_n)
+
+
+@dataclass
+class Pair:
+    """Датакласс для хранения пары `n` и `phi_n`"""
+
+    n: int
+    phi_n: int
 
 
 # ? Задание
@@ -91,18 +99,19 @@ dataset = [
     {"n": 548257, "phi_n": 546480},
 ]
 
-
-@dataclass
-class Pair:
-    n: int
-    phi_n: int
-
-
 pairs = [Pair(**d) for d in dataset]
 
-print(f"{'n':^9} {'phi_n':^9} {'p':^3} {'q':^3} {'p*q':^9} {'primefactors':^5}")
+columns = ["n", "phi_n", "p", "q", "p*q", "primefactors", "match"]
+max_columns = [7, 7, 4, 4, 7, 12, 5]
+for n, column in enumerate(columns):
+    print(f"{column:{max_columns[n]+1}}", end="")
+print(f'\n{"="*sum(max_columns)+"="*5}')
 
 for pair in pairs:
     e, d = generate_ed(phi_n=pair.phi_n)
     p, q = factorize_n(e, d, pair.n)
-    print(f"{pair.n:8} {pair.phi_n:8} {p:4} {q:4} {p * q:8}  {primefactors(pair.n)}")
+    p_test, q_test = primefactors(pair.n)
+    match = (p == p_test and q == q_test) or (p == q_test and q == p_test)
+    print(
+        f"{str(pair.n):7} {str(pair.phi_n):7} {str(p):4} {str(q):4} {str(p * q):7} {str(p_test):5} {str(q_test):6} {str(match):4}"
+    )
