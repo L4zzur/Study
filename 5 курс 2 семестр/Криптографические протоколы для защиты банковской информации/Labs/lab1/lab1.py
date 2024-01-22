@@ -50,7 +50,7 @@ def factorize_n(e: int, d: int, n: int) -> tuple[int, int]:
     Returns:
         tuple[int, int]: числа `p` и `q`
     """
-    g_set: set = set()
+    g_set = set()
 
     while True:
         g = randint(2, n)
@@ -63,7 +63,7 @@ def factorize_n(e: int, d: int, n: int) -> tuple[int, int]:
                 return int(gcd_g_n), int(n // gcd_g_n)
 
             # * Шаг 2
-            k: int = e * d - 1
+            k = e * d - 1
             r, t = repres_k(k)
 
             for _t in range(1, t + 1):
