@@ -24,7 +24,7 @@ def preparing_center(p_size: int = 512, q_size: int = 140) -> tuple[int, int, in
         )
 
     a = randint(2, p)
-    while (a**q % p) != 1:
+    while pow(a, q, p) != 1:
         a = randint(2, p)
 
     return p, q, a
@@ -78,7 +78,7 @@ def main_actions(p: int, q: int, a: int, v: int, s: int, t: int = 72) -> bool:
 
     # ~ Шаг 1. Претендент
     r = randint(2, q - 1)
-    x = a**r % p
+    x = pow(a, r, p)
 
     # ~ Шаг 2. Проверяющий центр
     e = randint(0, 2**t - 1)
@@ -87,7 +87,7 @@ def main_actions(p: int, q: int, a: int, v: int, s: int, t: int = 72) -> bool:
     y = (r + s * e) % q
 
     # ~ Шаг 4. Проверяющий центр
-    if x == (a**y) * (v**e) % p:
+    if x == pow(a, y, p) * pow(v, e, p) % p:
         return True
     return False
 

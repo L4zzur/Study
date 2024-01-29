@@ -43,7 +43,7 @@ def preparing_challenger(n: int) -> tuple[int, int]:
     while gcd(s, n) != 1:
         s = randint(2, n - 1)
 
-    v = (s**2) % n  # Открытый ключ претендета
+    v = pow(s, 2, n)  # Открытый ключ претендета
     return s, v
 
 
@@ -68,7 +68,7 @@ def main_actions(n: int, v: int, t: int = 1000) -> bool:
     for i in range(t):
         # ~ Шаг 1. Претендент
         r = randint(2, n - 1)
-        x = (r**2) % n
+        x = pow(r, 2, n)
 
         # ~ Шаг 2. Проверяющий центр
         e = randint(0, 1)
@@ -81,7 +81,7 @@ def main_actions(n: int, v: int, t: int = 1000) -> bool:
 
         # ~ Шаг 4. Проверяющий центр
         if y != 0:
-            if ((y**2) % n) == (x * (v**e) % n):
+            if (pow(y, 2, n)) == (x * pow(v, e, n) % n):
                 checks += 1
 
     return t == checks

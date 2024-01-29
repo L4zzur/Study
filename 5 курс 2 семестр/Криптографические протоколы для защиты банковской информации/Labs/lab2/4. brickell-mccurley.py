@@ -26,7 +26,7 @@ def preparing_center(
         p = next_prime(p)
 
     a = randint(2, p)
-    while (a**q % p) != 1:
+    while pow(a, q, p) != 1:
         a = randint(2, p)
 
     return p, q, w, a
@@ -77,7 +77,7 @@ def main_actions(p: int, a: int, s: int, v: int, t: int = 72) -> bool:
     """
     # ~ Шаг 1. Претендент
     r = randint(2, p)
-    x = a**r % p
+    x = pow(a, r, p)
 
     # ~ Шаг 2. Проверяющий центр
     e = randint(0, 2**t - 1)
@@ -86,7 +86,7 @@ def main_actions(p: int, a: int, s: int, v: int, t: int = 72) -> bool:
     y = (r + s * e) % (p - 1)
 
     # ~ Шаг 4. Проверяющий центр
-    if x == (a**y) * (v**e) % p:
+    if x == pow(a, y, p) * pow(v, e, p) % p:
         return True
     return False
 

@@ -47,7 +47,7 @@ def preparing_challenger(n: int, k: int = 5) -> tuple[list[int], list[int]]:
         if gcd(s_i, n) == 1:
             s.append(s_i)
 
-    v = [s_i**2 % n for s_i in s]  # Открытый ключ претендета
+    v = [pow(s_i, 2, n) for s_i in s]  # Открытый ключ претендета
 
     return s, v
 
@@ -72,7 +72,7 @@ def main_actions(s: list[int], v: list[int], n: int, k: int = 5, t: int = 4) -> 
     for i in range(t):
         # ~ Шаг 1. Претендент
         r = randint(2, n - 1)
-        x = (r**2) % n
+        x = pow(r, 2, n)
 
         # ~ Шаг 2. Проверяющий центр
         e = [randint(0, 1) for i in range(k)]
@@ -80,16 +80,16 @@ def main_actions(s: list[int], v: list[int], n: int, k: int = 5, t: int = 4) -> 
         # ~ Шаг 3. Претендент
         y = r
         for i in range(k):
-            y *= (s[i] ** e[i]) % n
+            y *= pow(s[i], e[i], n)
         y %= n
 
         # ~ Шаг 4. Проверяющий центр
         y_2 = x
         for i in range(k):
-            y_2 *= (v[i] ** e[i]) % n
+            y_2 *= pow(v[i], e[i], n)
         y_2 %= n
 
-        if (y**2 % n) != y_2:
+        if pow(y, 2, n) != y_2:
             return False
     return True
 
