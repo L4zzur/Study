@@ -41,7 +41,7 @@ def get_schnorr_scheme() -> Generator[int, None, None]:
         Generator[int, None, None]: `t`, `p`, `q`, `g`, `x`, `y`
     """
     t, p, q, g = 3, 53, 13, 16
-    for y in input_data:
+    for y in data:
         x = preparing_x(t, p, q, g, y)
         yield t, p, q, g, x, y
 
