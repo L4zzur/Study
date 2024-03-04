@@ -98,7 +98,7 @@ def main_actions(
     return False, check, y
 
 
-result, c, y = main_actions(
+result, check, y = main_actions(
     Z=Z, k=k, p=p, g=g, l=l, S=S, V=V, hash_func=hash_func, message=message
 )
-print(f"Результат проверки (рабочий этап): {result}\n{c = }\n{y = }")
+print(f"Результат проверки (рабочий этап): {result}\n{check = }\n{y = }")
