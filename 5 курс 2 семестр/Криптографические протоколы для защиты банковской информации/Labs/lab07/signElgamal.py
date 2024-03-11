@@ -50,8 +50,6 @@ def create_sign(
 
     h = hash_func(message)
 
-    assert h < p
-
     if not k:
         k = randint(1, p - 1)
         while gcd(k, p - 1) != 1:
@@ -88,11 +86,13 @@ def verify_sign(
 
 if __name__ == "__main__":
     hash_func = lambda m: m
-    p, g, x, y = preparing_client(20)
+    p, g, x, y = preparing_client(p=None, g=None, x=None, size_p=20)
 
     message = 12345
-    sign = create_sign(p, g, x, hash_func, message)
+    sign = create_sign(
+        p=p, g=g, x=x, k=None, hash_func=hash_func, message=message
+    )
     print(f"Подпись: {sign}")
 
-    result = verify_sign(y, sign, hash_func, message)
+    result = verify_sign(p=p, g=g, y=y, sign=sign, hash_func=hash_func)
     print(f"Результат проверки подписи: {result}")
