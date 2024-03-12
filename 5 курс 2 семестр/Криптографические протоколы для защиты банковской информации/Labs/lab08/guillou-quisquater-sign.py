@@ -1,4 +1,3 @@
-from hashlib import sha256
 import hashlib
 from sage.all import *
 
@@ -54,7 +53,7 @@ print(f"Предварительный этап претендета:\n{v = }\n{
 
 # ? Рабочий этап
 def main_actions(n: int, v: int, message: int, l: int = 2) -> bool:
-    """Рабочий этап протокола Фиата-Шамира
+    """Рабочий этап протокола электронной подписи Фиата-Шамира
 
     Аргументы:
         n (int): известный модуль схемы
@@ -63,7 +62,7 @@ def main_actions(n: int, v: int, message: int, l: int = 2) -> bool:
         t (int, optional): параметр безопасности протокола. По умолчанию 1000.
 
     Возвращает:
-        bool: True, если аутентификация пройдена, False - иначе.
+        bool: True, если подпись принята, False - иначе.
     """
     assert l >= 2
 
@@ -95,4 +94,4 @@ def main_actions(n: int, v: int, message: int, l: int = 2) -> bool:
 
 
 result = main_actions(n, v, 500, l)
-print(f"Результат проверки (рабочий этап): {result}")
+print(f"Результат проверки подписи: {result}")
