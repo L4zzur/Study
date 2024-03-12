@@ -1,6 +1,6 @@
-from sympy import primefactors, gcd
-from random import randint
 from dataclasses import dataclass
+from prettytable import PrettyTable
+from sage.all import *
 
 #! Реализация алгоритма разложения числа n на простые числа p и q
 
@@ -8,10 +8,10 @@ from dataclasses import dataclass
 def generate_ed(phi_n: int) -> tuple[int, int]:
     """Генерация параметров `e` и `d` для `phi_n`
 
-    Args:
+    Аргументы:
         phi_n (int): функция Эйлера от `n`
 
-    Returns:
+    Возвращает:
         tuple[int, int]: параметры `e` и `d`
     """
     e = randint(2, phi_n)
@@ -26,10 +26,10 @@ def generate_ed(phi_n: int) -> tuple[int, int]:
 def repres_k(k: int) -> tuple[int, int]:
     """Представление числа `k` в виде `r*2^t`
 
-    Args:
+    Аргументы:
         k (int): число, необходимое представить
 
-    Returns:
+    Возвращает:
         tuple[int, int]: числа `r` и `t`
     """
     t = 0
@@ -42,12 +42,12 @@ def repres_k(k: int) -> tuple[int, int]:
 def factorize_n(e: int, d: int, n: int) -> tuple[int, int]:
     """Функция, реализующая алгоритм факторизации `n` на `p` и `q`
 
-    Args:
+    Аргументы:
         e (int): параметр
         d (int): параметр
         n (int): модуль
 
-    Returns:
+    Возвращает:
         tuple[int, int]: числа `p` и `q`
     """
     g_set = set()
@@ -86,7 +86,7 @@ class Pair:
 
 
 # ? Задание
-dataset = [
+data = [
     {"n": 201239, "phi_n": 197880},
     {"n": 233977, "phi_n": 231076},
     {"n": 146017, "phi_n": 144900},
@@ -99,19 +99,19 @@ dataset = [
     {"n": 548257, "phi_n": 546480},
 ]
 
-pairs = [Pair(**d) for d in dataset]
 
 columns = ["n", "phi_n", "p", "q", "p*q", "primefactors", "match"]
-max_columns = [7, 7, 4, 4, 7, 12, 5]
-for n, column in enumerate(columns):
-    print(f"{column:{max_columns[n]+1}}", end="")
-print(f'\n{"="*sum(max_columns)+"="*5}')
 
-for pair in pairs:
-    e, d = generate_ed(phi_n=pair.phi_n)
-    p, q = factorize_n(e, d, pair.n)
-    p_test, q_test = primefactors(pair.n)
+table = PrettyTable(["n", "phi_n", "p", "q", "p*q", "p_f", "q_f", "match"])
+table.align = "r"
+
+
+for d in data:
+    n = d["n"]
+    phi_n = d["phi_n"]
+    e, d = generate_ed(phi_n)
+    p, q = factorize_n(e, d, n)
+    p_test, q_test = [f[0] for f in factor(n)]
     match = (p == p_test and q == q_test) or (p == q_test and q == p_test)
-    print(
-        f"{str(pair.n):7} {str(pair.phi_n):7} {str(p):4} {str(q):4} {str(p * q):7} {str(p_test):5} {str(q_test):6} {str(match):4}"
-    )
+    table.add_row([n, phi_n, p, q, p * q, p_test, q_test, match])
+print(table)

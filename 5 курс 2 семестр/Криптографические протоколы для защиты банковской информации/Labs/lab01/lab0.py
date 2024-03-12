@@ -1,6 +1,4 @@
-from sympy.ntheory.generate import randprime
-from sympy import primefactors, gcd
-from random import randint
+from sage.all import *
 
 #! Реализация протокола обмена подписью между банком и клиентом
 
@@ -8,26 +6,24 @@ from random import randint
 def generate_primes(size: int) -> tuple[int, int]:
     """Генерация двух простых чисел от 10^`(size-1)` до 10^`size`
 
-    Args:
+    Аргументы:
         size (int): размер простого числа (от 10^`(size-1)` до 10^`size`)
 
-    Returns:
+    Возвращает:
         tuple[int, int]: разные простые числа
     """
-    P = randprime(10 ** (size - 1), 10**size)
-    Q = randprime(10 ** (size - 1), 10**size)
-    while P == Q:
-        Q = randprime(10 ** (size - 1), 10**size)
+    P = random_prime(lbound=10 ** (size - 1), n=10**size)
+    Q = next_prime(P)
     return P, Q
 
 
 def generate_ed(phi_n: int) -> tuple[int, int]:
     """Генерация параметров `e` и `d` для `phi_n`
 
-    Args:
+    Аргументы:
         phi_n (int): функция Эйлера от `n`
 
-    Returns:
+    Возвращает:
         tuple[int, int]: параметры `e` и `d`
     """
     e = randint(2, phi_n)
@@ -54,7 +50,9 @@ n = p * q
 phi_n = (p - 1) * (q - 1)
 e, d = generate_ed(phi_n)
 
-print(f"Параметры клиента:\n{p = }, {q = }, {n = }, {phi_n = }, {e = }, {d = }\n")
+print(
+    f"Параметры клиента:\n{p = }, {q = }, {n = }, {phi_n = }, {e = }, {d = }\n"
+)
 
 # Сообщение, пересылка
 m = randint(100, 1000)
