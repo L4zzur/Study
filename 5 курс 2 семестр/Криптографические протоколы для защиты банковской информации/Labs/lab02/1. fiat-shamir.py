@@ -1,5 +1,6 @@
-from sage.all import *
 from random import randint
+
+from sage.all import *
 
 #! Протокол аутентификации Фиата - Шамира 1986
 

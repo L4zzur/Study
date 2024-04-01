@@ -1,7 +1,8 @@
 import hashlib
-from uuid import uuid4
-from sage.all import *
 from random import randint
+from uuid import uuid4
+
+from sage.all import *
 
 #! Схема цифровой подписи Шнорра
 

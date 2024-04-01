@@ -1,5 +1,6 @@
 import hashlib
 from typing import Any
+
 from sage.all import *
 
 #! Схема затемненной подписи Шаума-Педерсена

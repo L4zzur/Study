@@ -1,7 +1,8 @@
-from typing import Any
-from sage.all import *
 import hashlib
+from typing import Any
 from uuid import uuid4
+
+from sage.all import *
 
 #! Задание параметров и подготовка к совместной ЦП Брикелла-Ли-Якоби
 

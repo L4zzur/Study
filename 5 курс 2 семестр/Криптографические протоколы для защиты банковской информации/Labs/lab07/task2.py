@@ -1,6 +1,6 @@
-from signElgamal import create_sign, verify_sign, preparing_client
-from sage.all import *
 from prettytable import PrettyTable
+from sage.all import *
+from signElgamal import create_sign, preparing_client, verify_sign
 
 #! Задание 2
 """

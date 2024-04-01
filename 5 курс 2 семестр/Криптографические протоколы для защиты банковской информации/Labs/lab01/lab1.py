@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+
 from prettytable import PrettyTable
 from sage.all import *
 

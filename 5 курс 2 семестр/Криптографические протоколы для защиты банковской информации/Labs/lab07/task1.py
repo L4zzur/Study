@@ -1,5 +1,5 @@
-from signElgamal import verify_sign
 from sage.all import *
+from signElgamal import verify_sign
 
 #! Задание 1
 """

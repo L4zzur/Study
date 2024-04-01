@@ -1,4 +1,5 @@
 import hashlib
+
 from sage.all import *
 
 #! Третья "хорошая" схема
