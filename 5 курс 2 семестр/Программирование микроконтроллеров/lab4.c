@@ -85,8 +85,8 @@ void cmd(uint8_t data)
 {
     GPIOA->ODR &= ~GPIO_ODR_ODR3;
     GPIOA->ODR &= ~GPIO_ODR_ODR4;
-    delay_us(1000);
     SPI1_Write(data);
+    delay_us(1000);
     GPIOA->ODR |= GPIO_ODR_ODR4;
 }
 
@@ -94,8 +94,8 @@ void dat(uint8_t data)
 {
     GPIOA->ODR |= GPIO_ODR_ODR3;
     GPIOA->ODR &= ~GPIO_ODR_ODR4;
-    delay_us(1000);
     SPI1_Write(data);
+    delay_us(1000);
     GPIOA->ODR |= GPIO_ODR_ODR4;
 }
 
